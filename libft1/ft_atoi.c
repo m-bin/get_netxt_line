@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbin <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 19:49:46 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/23 20:09:08 by mbin             ###   ########.fr       */
+/*   Created: 2019/01/12 21:05:01 by mbin              #+#    #+#             */
+/*   Updated: 2019/01/23 17:49:14 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# define BUFF_SIZE 50
-#include "libft/libft.h"
+int	ft_atoi(const char *str)
+{
+	unsigned long long int	res;
+	int						i;
+	int						signe;
 
-int		get_next_line(const int fd, char **line);
-
-#endif
+	res = 0;
+	i = 0;
+	signe = 1;
+	while (str[i] == ' ' || (str[i] <= 13 && str[i] >= 9))
+		i++;
+	if (str[i] == '-')
+	{
+		signe = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] <= '9' && str[i] >= '0')
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return ((int)(signe * res));
+}
