@@ -1,11 +1,11 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_better.c                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbin <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 19:28:18 by mbin              #+#    #+#             */
+/*   Cr ggfresdxzcvbghgfdcvbeated: 2019/01/23 19:28:18 by mbin              #+#    #+#             */
 /*   Updated: 2019/01/23 23:46:16 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -26,7 +26,7 @@ int	read_file(const int fd, char **file)
 	char	buf[BUFF_SIZE + 1];
 	int		r;
 
-	if (fd == -1)
+	if (fd < 0)
 		return (-1);
 	while ((r = read(fd, buf, BUFF_SIZE)))
 	{
@@ -34,7 +34,14 @@ int	read_file(const int fd, char **file)
 		*file = ft_strjoinfree(*file, buf);
 		if (*file == NULL)
 			return (-1);
+		if (r == -1)
+		{
+			ft_strdel(file);
+			return (-1);
+		}
 	}
+	if (*file == NULL)
+		return (0);
 	return (1);
 }
 
@@ -55,13 +62,10 @@ int	write_line(char **file, char **line)
 		i++;
 	}
 	(*line)[i] = 0;
-	if (*file[i])
+	if ((*file)[i])
 		*file = ft_clean(file, i);
 	else
-	{
 		ft_strdel(file);
-		return (0);
-	}
 	return (1);
 }
 
