@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbin <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: mbin <mbin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Cr ggfresdxzcvbghgfdcvbeated: 2019/01/23 19:28:18 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/23 23:46:16 by mbin             ###   ########.fr       */
+/*   Created: 2019/01/26 17:54:46 by mbin              #+#    #+#             */
+/*   Updated: 2019/01/26 18:18:11 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	read_file(const int fd, char **file)
 	{
 		buf[r] = 0;
 		*file = ft_strjoinfree(*file, buf);
+		ft_putchar('a');
 		if (*file == NULL)
 			return (-1);
 		if (r == -1)

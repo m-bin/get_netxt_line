@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_better.c                             :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbin <marvin@42.fr>                        +#+  +:+       +#+        */
+/*   By: mbin <mbin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/23 19:28:18 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/23 22:41:41 by mbin             ###   ########.fr       */
+/*   Created: 2019/01/26 17:54:46 by mbin              #+#    #+#             */
+/*   Updated: 2019/01/26 17:54:56 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_clean(char **file, char **line)
+char	*ft_clean(char **file, int n)
 {
+	char	*fresh;
 
+	fresh = ft_strdup(*file + n + 1);
+	ft_strdel(file);
+	return (fresh);
 }
 
 int	read_file(const int fd, char **file)
@@ -22,20 +26,22 @@ int	read_file(const int fd, char **file)
 	char	buf[BUFF_SIZE + 1];
 	int		r;
 
-	if (fd == -1)
+	if (fd < 0)
 		return (-1);
-	if ((*file != NULL) && (*file)[0] == 0)
-	{
-		ft_strdel(file);
-		return (0);
-	}
 	while ((r = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[r] = 0;
 		*file = ft_strjoinfree(*file, buf);
 		if (*file == NULL)
 			return (-1);
+		if (r == -1)
+		{
+			ft_strdel(file);
+			return (-1);
+		}
 	}
+	if (*file == NULL)
+		return (0);
 	return (1);
 }
 
@@ -56,10 +62,10 @@ int	write_line(char **file, char **line)
 		i++;
 	}
 	(*line)[i] = 0;
-	if (*file[i])
-		*file = *file + i + 1;
+	if ((*file)[i])
+		*file = ft_clean(file, i);
 	else
-		*file
+		ft_strdel(file);
 	return (1);
 }
 

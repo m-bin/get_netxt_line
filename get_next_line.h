@@ -6,7 +6,7 @@
 /*   By: mbin <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/23 19:49:46 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/23 20:09:08 by mbin             ###   ########.fr       */
+/*   Updated: 2019/01/26 18:16:06 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define BUFF_SIZE 50
 #include "libft/libft.h"
+#include <fcntl.h>
 
 int		get_next_line(const int fd, char **line);
 
