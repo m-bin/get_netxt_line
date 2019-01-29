@@ -6,13 +6,13 @@
 /*   By: mbin <mbin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 17:54:46 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/29 21:59:29 by mbin             ###   ########.fr       */
+/*   Updated: 2019/01/29 21:07:42 by mbin             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_clean_and_push(char **file, int n)
+char	*ft_clean(char **file, int n)
 {
 	char	*fresh;
 
@@ -38,7 +38,7 @@ int	read_file(const int fd, char **file)
 		buf[r] = 0;
 		*file = ft_strjoinfree(*file, buf);
 		if (!file || !(*file))
-			return (-1);
+			return (-2);
 		if (r == -1)
 		{
 			ft_strdel(file);
@@ -73,7 +73,7 @@ int	write_line(char **file, char **line)
 	}
 	ligne[i] = 0;
 	if (cpfile[i] == '\n')
-		*file = ft_clean_and_push(file, i);
+		*file = ft_clean(file, i);
 	else
 		ft_strdel(file);
 	*line = ligne;
@@ -97,8 +97,14 @@ int	get_next_line(const int fd, char **line)
 		return (0);
 	r = write_line(&file, line);
 	if (r == -1)
+	{
+		ft_strdel(&file);
 		return (-1);
+	}
 	if (r == 0)
+	{
+		ft_strdel(&file);
 		return (0);
+	}
 	return (1);
 }
