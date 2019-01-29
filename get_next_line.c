@@ -6,7 +6,7 @@
 /*   By: mbin <mbin@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/26 17:54:46 by mbin              #+#    #+#             */
-/*   Updated: 2019/01/29 21:59:29 by mbin             ###   ########.fr       */
+/*   Updated: 2019/01/29 22:09:50 by cmace            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_clean_and_push(char **file, int n)
 	return (fresh);
 }
 
-int	read_file(const int fd, char **file)
+int		read_file(const int fd, char **file)
 {
 	char	buf[BUFF_SIZE + 1];
 	int		r;
@@ -50,7 +50,7 @@ int	read_file(const int fd, char **file)
 	return (1);
 }
 
-int	write_line(char **file, char **line)
+int		write_line(char **file, char **line)
 {
 	int		i;
 	char	*ligne;
@@ -60,8 +60,7 @@ int	write_line(char **file, char **line)
 	i = 0;
 	while (cpfile[i] && cpfile[i] != '\n')
 		i++;
-	ligne = (char *)malloc((i + 1) * sizeof(char));
-	if (!ligne)
+	if ((ligne = (char *)malloc((i + 1) * sizeof(char))))
 		return (-1);
 	if (ligne == NULL)
 		return (-1);
@@ -80,7 +79,7 @@ int	write_line(char **file, char **line)
 	return (1);
 }
 
-int	get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line)
 {
 	static char	*file = NULL;
 	int			r;
